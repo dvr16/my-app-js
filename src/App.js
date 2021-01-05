@@ -9,35 +9,23 @@ import UsersContainer from './components/Users/UsersContainer';
 
 const App = (props) => {
 
-    return ( <
-        div className = 'app-wrapper' >
-        <
-        Header / >
-        <
-        Navbar / >
-        <
-        div className = 'app-wrapper-content' >
+        return ( 
+            <div className = 'app-wrapper' >
+                <Header / >
+                <Navbar / >
+                <div className = 'app-wrapper-content' >
 
-        <
-        Route path = '/dialogs'
-        render = {
-            () => < DialogsContainer / > }
-        / >
+                <Route path = '/dialogs'
+                render = {() => < DialogsContainer/> } / >
 
-        <
-        Route path = '/profile'
-        render = {
-            () => < Profile / > }
-        / >
+                <Route path = '/profile'
+                render = { () => < Profile/> } / >
 
-        <
-        Route path = '/users'
-        render = {
-            () => < UsersContainer / > }
-        / > <
-        /div>  <
-        /div >
-    );
-}
+                <Route path = '/users'
+                render = { () => <UsersContainer /> } / >
+                        </div> 
+                        </div >
+                    );
+                }
 
-export default App;
+                export default App;

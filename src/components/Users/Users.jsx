@@ -1,16 +1,23 @@
+import * as axios from 'axios';
 import React from 'react';
 import styles from './users.module.css';
+import userPhoto from '../../assets/images/user.png';
 
 let Users = (props) => {
     if(props.users.length === 0){
-    props.setUsers([
-        { id: 1, photoUrl: 'https://img01.rl0.ru/9b1c9e503f59bc7d3a532bc8dadc4185/c615x400i/https/store.rambler.ru/news/img/924314809c5ea5bb724526a88f08b535', 
-        followed: false, fullName: 'Dmitry', status: 'I am boss', location: { city: 'Minsk', country: 'Belarus' } },
-        { id: 2, photoUrl: 'https://img01.rl0.ru/9b1c9e503f59bc7d3a532bc8dadc4185/c615x400i/https/store.rambler.ru/news/img/924314809c5ea5bb724526a88f08b535', 
-        followed: true, fullName: 'Sasha', status: 'I am boss too', location: { city: 'Moscow', country: 'Russia' } },
-        { id: 3, photoUrl: 'https://img01.rl0.ru/9b1c9e503f59bc7d3a532bc8dadc4185/c615x400i/https/store.rambler.ru/news/img/924314809c5ea5bb724526a88f08b535', 
-        followed: false, fullName: 'Andrew', status: 'I am boss too', location: { city: 'Kiev', country: 'Ukraine' } }
-     ])
+
+        axios.get("https://social-network.samuraijs.com/api/1.0/users").then(response => {
+            props.setUsers(response.data.items);
+        });
+
+    //props.setUsers([
+        //{ id: 1, photoUrl: 'https://img01.rl0.ru/9b1c9e503f59bc7d3a532bc8dadc4185/c615x400i/https/store.rambler.ru/news/img/924314809c5ea5bb724526a88f08b535', 
+        //followed: false, fullName: 'Dmitry', status: 'I am boss', location: { city: 'Minsk', country: 'Belarus' } },
+        //{ id: 2, photoUrl: 'https://img01.rl0.ru/9b1c9e503f59bc7d3a532bc8dadc4185/c615x400i/https/store.rambler.ru/news/img/924314809c5ea5bb724526a88f08b535', 
+       // followed: true, fullName: 'Sasha', status: 'I am boss too', location: { city: 'Moscow', country: 'Russia' } },
+       // { id: 3, photoUrl: 'https://img01.rl0.ru/9b1c9e503f59bc7d3a532bc8dadc4185/c615x400i/https/store.rambler.ru/news/img/924314809c5ea5bb724526a88f08b535', 
+       // followed: false, fullName: 'Andrew', status: 'I am boss too', location: { city: 'Kiev', country: 'Ukraine' } }
+     //])
     }
 
     return <div>
@@ -18,7 +25,7 @@ let Users = (props) => {
             props.users.map(u => <div key={u.id}>
                 <span>
                     <div>
-                    <img src={u.photoUrl} className={styles.userPhoto}/>
+                    <img src={u.photos.small != null ? u.photos.small : "userPhoto"} className={styles.userPhoto}/>
                     </div>
                     <div>
                         {u.followed ? 
@@ -28,12 +35,12 @@ let Users = (props) => {
                 </span>
                 <span>
                     <span>
-                        <div>{u.fullName}</div>
+                        <div>{u.name}</div>
                         <div>{u.status}</div>
                     </span>
                     <span>
-                    <div>{u.location.country}</div>
-                    <div>{u.location.city}</div>                 
+                    <div>{"u.location.country"}</div>
+                    <div>{"u.location.city"}</div>                 
                     </span>
                 </span>
             </div>)
